@@ -24,6 +24,7 @@ $$\textcolor{teal}{\sum_{k = 0}^{n - 1} 2^{k} = {2^n - 1 \over 2 - 1} = 2^n - 1}
 $$\Rightarrow T(n) \in \Theta(\textcolor{blue}{2^n} + \textcolor{teal}{2^n - 1}) = \Theta(2^n)$$
 
 
+
 # Exercițiul 2
 
 > $T(n) = T(n - 2) + \Theta(n)$
@@ -45,7 +46,37 @@ Identificăm:
    T(n - 2(h - 1)) &= \textcolor{blue}{\underbrace{T(n - 2h)}_{\Theta(1)}} &+ \textcolor{teal}{c(n-2(h-1))} \\
 \end{align*}
 
-$$\sum_{k = 0}^{h - 1} c(n-2k) = h \cdot c \cdot n - 2\sum_{k = 0}^{h - 1} k$$
+\begin{align*}
+\sum_{k = 0}^{h - 1} c(n-2k) = h \cdot c \cdot n - 2c \cdot \sum_{k = 0}^{h - 1} k = h \cdot c \cdot n - c \cdot (h - 1) \cdot h = \\
+= c \cdot h \cdot (n - h +1) = c \cdot \left\lfloor {n \over 2} \right\rfloor \cdot (n - \left\lfloor {n \over 2} \right\rfloor + 1) = \Theta(n^2)
+\end{align*}
+
+
+# Exercițiul 3
+
+> $T(n) = T(n - k) + \Theta(n)$
+
+Identificăm:
+
+- $a = 1$
+- $b = k$
+- $h = \left\lfloor {n \over k} \right\rfloor$.
+- $f(n) = c \cdot n \in \Theta(n)$, unde c este o constantă, **fixată**.
+
+\begin{align*}
+   T(n) &= T(n - k) &+ \textcolor{teal}{c \cdot n} \\
+   T(n - k) &= T(n - 2k) &+ \textcolor{teal}{c(n - k)} \\
+   T(n - 2k) &= T(n - 3k) &+ \textcolor{teal}{c(n - 2k)} \\
+   &\ldots \\
+   \textcolor{red}{T(n - l \cdot k)} &= \textcolor{red}{T(n - (l + 1) \cdot k)} &+ \textcolor{teal}{c(n - l \cdot k)} \\
+   &\ldots \\
+   T(n - (h - 1) \cdot k) &= \textcolor{blue}{\underbrace{T(n - h \cdot k)}_{\Theta(1)}} &+ \textcolor{teal}{c(n-(h-1) \cdot k)} \\
+\end{align*}
+
+\begin{align*}
+\sum_{l = 0}^{h - 1} c(n-l \cdot k) = h \cdot c \cdot n - c \cdot k \cdot \sum_{l = 0}^{h - 1} l = h \cdot c \cdot n - c \cdot k \cdot {(h - 1) \cdot h \over 2} = \\
+= c \cdot h \cdot (n - {k \over 2} \cdot h + {k \over 2}) = c \cdot \left\lfloor {n \over k} \right\rfloor \cdot (n - {k \over 2} \cdot \left\lfloor {n \over k} \right\rfloor + {k \over 2}) = \Theta(n^2)
+\end{align*}
 
 
 <!-- ## Exemplu pentru $n = 5$
