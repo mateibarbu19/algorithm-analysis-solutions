@@ -2,13 +2,6 @@
 
 > $T(n)=2 \cdot T(n - 1) + 1$
 
-Identificăm:
-
-- $a = 2$
-- $b = 1$
-- $h = \left\lfloor {n \over 1} \right\rfloor = n$.
-- $f(n) = 1 \in \Theta(1)$.
-
 \begin{align*}
    T(n) &= 2 \cdot T(n - 1) &+ \textcolor{teal}{1} \\
    2 \cdot T(n - 1) &= 2^2 \cdot T(n - 2) &+ \textcolor{teal}{2} \\
@@ -29,12 +22,10 @@ $$\Rightarrow T(n) \in \Theta(\textcolor{blue}{2^n} + \textcolor{teal}{2^n - 1})
 
 > $T(n) = T(n - 2) + \Theta(n)$
 
-Identificăm:
+Notăm
 
-- $a = 1$
-- $b = 2$
 - $h = \left\lfloor {n \over 2} \right\rfloor$.
-- $f(n) = c \cdot n \in \Theta(n)$, unde c este o constantă, **fixată**.
+- $f(n) = c \cdot n \in \Theta(n)$, unde c este o constantă, **fixată**.^[Această simplificare este acceptată, vezi @cormen2009introduction, cap. 4.4]
 
 \begin{align*}
    T(n) &= T(n - 2) &+ \textcolor{teal}{c \cdot n} \\
@@ -57,10 +48,8 @@ $$\Rightarrow T(n) \in \Theta(n^2)$$
 
 > $T(n) = T(n - k) + \Theta(n),\ k$ const
 
-Identificăm:
+Notăm:
 
-- $a = 1$
-- $b = k$
 - $h = \left\lfloor {n \over k} \right\rfloor$.
 - $f(n) = c \cdot n \in \Theta(n)$, unde c este o constantă, **fixată**.
 
@@ -83,25 +72,20 @@ $$\Rightarrow T(n) \in \Theta(n^2)$$
 
 # Exercițiul 4
 
-> $T(n) = T(n - a) + T(a) + \Theta(cn), a \geq 1$ și $c > 0$ const
-
-Identificăm:
-
-- $T(a) \in \Theta(1)$
-- $f(n) \in \Theta(c * n) = \Theta(n)$
-
+> $T(n) = T(n - a) + T(a) + \Theta(n), a \geq 1$
+>
+> $T(a) \in \Theta(1)$
 
 \begin{align*}
-T(n) &= T(n-a) + T(a) + \Theta(cn) = T(n-a) + \Theta(1) + \Theta(n)\\
+T(n) &= T(n-a) + T(a) + \Theta(n) = T(n-a) + \Theta(1) + \Theta(n)\\
 &= T(n-a) + \Theta(n)
 \end{align*}
 
-Ca la exercițiul 3, pentru $k=a$
-
+Ca la exercițiul 3, pentru $k=a$.
 
 # Exercițiul 5
 
-> $T(n) = 2T(n/3) + n \cdot log(n)$
+> $T(n) = 2T({n \over 3}) + n \cdot log(n)$
 
 Identificăm:
 
@@ -109,20 +93,24 @@ Identificăm:
 
 
 \begin{align*}
-   T(n) &= 2T(n/3) &+ \textcolor{teal}{n \cdot log(n)} \\
-   2T(n/3) &= 4T(n/9) &+ \textcolor{teal}{2n \cdot log(n/3)} \\
-   4T(n/9) &= 8T(n/27) &+ \textcolor{teal}{4n \cdot log(n/9)} \\
+   T(n) &= 2T({n \over 3}) &+ \textcolor{teal}{n \cdot log(n)} \\
+   2T({n \over 3}) &= 2^2 T({n \over 3^2}) &+ \textcolor{teal}{{2 \over 3}n \cdot log({n \over 3})} \\
+   2^2 T({n \over 3^2}) &= 2^3 T({n \over 3^3}) &+ \textcolor{teal}{({2 \over 3})^2 n \cdot log({n \over 3^2})} \\
    &\ldots \\
-   \textcolor{red}{2^kT(n/3^k)} &= \textcolor{red}{2^{k+1}T(n /3^{k+1})} &+ \textcolor{teal}{2^kn \cdot log(n/3^k)} \\
+   \textcolor{red}{2^kT({n \over 3^k})} &= \textcolor{red}{2^{k+1}T({n \over 3^{k+1}})} &+ \textcolor{teal}{({2 \over 3})^k n \cdot log({n \over 3^k})} \\
    &\ldots \\
-   2^{h-1}T(n/3^{h-1}) &= \textcolor{blue}{2^h\underbrace{T(n /3^h)}_{\Theta(1)}} &+ \textcolor{teal}{2^{h-1}n \cdot log(n/3^{h-1})} \\
+   2^{h-1}T({n \over 3^{h-1}}) &= \textcolor{blue}{2^h\underbrace{T({n \over 3^h})}_{\Theta(1)}} &+ \textcolor{teal}{({2 \over 3})^{h-1} n \cdot log({n \over 3^{h-1}})} \\
 \end{align*}
 
 \begin{align*}
-T(n) &= 2^h + \sum_{k = 0}^{h - 1} 2^kn \cdot log(n/3^k) = 2^h + n\sum_{k = 0}^{h - 1} 2^k \cdot (log(n)-log(3^k))\\
-&=2^h + n \cdot log(n)\sum_{k = 0}^{h - 1} 2^k - \sum_{k = 0}^{h - 1} 2^k \cdot k \cdot log(3)\\
-&\sum_{k = 0}^{h - 1} 2^k = 2^h-1 \\
+T(n) &= 2^h + \sum_{k = 0}^{h - 1} ({2 \over 3})^k n \cdot log({n \over 3^k}) = 2^h + n\sum_{k = 0}^{h - 1} ({2 \over 3})^k \cdot (log(n)-log(3^k))\\
+&=2^h + n \cdot log(n)\sum_{k = 0}^{h - 1} ({2 \over 3})^k - \sum_{k = 0}^{h - 1} ({2 \over 3})^k \cdot k \cdot log(3)
 \end{align*}
+
+Folosim :
+
+$$\sum_{k = 0}^{h - 1} ({2 \over 3})^k = {({2 \over 3})^h-1 \over {2 \over 3} - 1}$$
+
 \begin{align*}
 fie\ &S(n)=\sum_{k = 1}^{n} 2^k \cdot k = \sum_{k = 1}^{n} 2^k + 2 \sum_{k = 1}^{n-1} 2^k \cdot k = 2^{n+1}-2 + 2S(n-1)\\
 dar\ &S(n) = n2^n+S(n-1)\\
@@ -134,28 +122,4 @@ $$T(n)=2^h+n \cdot log(n) \cdot (2^h-1) - log(3) \cdot (2^h(h-2)+2)$$
 dar $h \ll n \cdot log(n)$
 $$\Rightarrow T(n) \in \Theta(n \cdot log(n) \cdot 2^h) = \Theta(n \cdot log(n) \cdot 2^{log_3(n)})$$
 
-
-
-
-<!-- ## Exemplu pentru $n = 5$
-
-\begin{align*}
-   T(5) &= T(3) &+ \textcolor{teal}{5c} \\
-   T(3) &= T(1) &+ \textcolor{teal}{3c}
-\end{align*}
-
-$$\Rightarrow T(5) = \underbrace{T(1)}_{\Theta(1)} + 8c$$
-
-## Exemplu pentru $n = 6$
-
-\begin{align*}
-   T(6) &= T(4) &+ \textcolor{teal}{6c} \\
-   T(4) &= T(2) &+ \textcolor{teal}{4c}
-\end{align*}
-
-$$\Rightarrow T(6) = \underbrace{T(2)}_{\Theta(1)} + 10c$$
-
-## Observație asupra adâncimii
-
-În ceea ce privește funcția de timp, pentru o intrare impară, recursivitatea ajunge la cazul de bază, $T(1)$. Dar pentru o intrare pară, aceasta ajunge la cazul de bază $T(2)$. -->
-
+# Bibliografie
