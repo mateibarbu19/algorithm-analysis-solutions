@@ -1,0 +1,17 @@
+---
+lang: ro
+author: Echipa AA
+title: Seminar 1 - Exerciții rezolvate
+date:
+geometry: margin=2cm
+indent: true
+papersize: a4
+color-links: true
+urlcolor: blue
+references:
+  - id: MISC_578107
+    title: Show that the language TOT is not recursively enumerable nor its complement.
+    author: Carl Mummert
+    publisher: Mathematics Stack Exchange
+    URL: https://math.stackexchange.com/q/578107
+---
