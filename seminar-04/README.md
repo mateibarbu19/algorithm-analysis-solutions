@@ -54,7 +54,7 @@ Identificăm:
 
 # Exercițiul 3
 
-> $T(n) = T(n - k) + \Theta(n)$
+> $T(n) = T(n - k) + \Theta(n),\ k$ const
 
 Identificăm:
 
@@ -77,6 +77,22 @@ Identificăm:
 \sum_{l = 0}^{h - 1} c(n-l \cdot k) = h \cdot c \cdot n - c \cdot k \cdot \sum_{l = 0}^{h - 1} l = h \cdot c \cdot n - c \cdot k \cdot {(h - 1) \cdot h \over 2} = \\
 = c \cdot h \cdot (n - {k \over 2} \cdot h + {k \over 2}) = c \cdot \left\lfloor {n \over k} \right\rfloor \cdot (n - {k \over 2} \cdot \left\lfloor {n \over k} \right\rfloor + {k \over 2}) = \Theta(n^2)
 \end{align*}
+
+
+# Exercițiul 4
+
+> $T(n) = T(n - a) + T(a) + \Theta(cn), a \geq 1$ și $c > 0$ const
+
+Identificăm:
+
+- $T(a) \in \Theta(1)$
+- $f(n) \in \Theta(c * n) = \Theta(n)$
+
+
+$$T(n) = T(n-a) + T(a) + \Theta(cn) = T(n-a) + \Theta(1) + \Theta(n)$$
+$$T(n) = T(n-a) + \Theta(n)$$
+
+Ca la exercițiul 3, pentru $k=a$
 
 
 <!-- ## Exemplu pentru $n = 5$
