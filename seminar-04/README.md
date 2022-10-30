@@ -107,17 +107,17 @@ T(n) &= 2^h + \sum_{k = 0}^{h - 1} ({2 \over 3})^k n \cdot log({n \over 3^k}) = 
 
 Folosim :
 
-$$\sum_{k = 0}^{h - 1} ({2 \over 3})^k = {({2 \over 3})^h-1 \over {2 \over 3} - 1}$$
+$$\sum_{k = 0}^{h - 1} ({2 \over 3})^k = {({2 \over 3})^h-1 \over {2 \over 3} - 1} = 3-3({2 \over 3})^h$$
 
 $$\begin{aligned}
-fie\ &S(n)=\sum_{k = 1}^{n} 2^k \cdot k = \sum_{k = 1}^{n} 2^k + 2 \sum_{k = 1}^{n-1} 2^k \cdot k = 2^{n+1}-2 + 2S(n-1)\\
-dar\ &S(n) = n2^n+S(n-1)\\
-\Rightarrow &2^{n+1}-2 + 2S(n-1) = n2^n+S(n-1)\\
-&S(n-1)=n2^n-2^{n+1}+2 = 2^n(n-2)+2
+fie\ &S(n)=\sum_{k = 1}^{n} ({2 \over 3})^k \cdot k = \sum_{k = 1}^{n} ({2 \over 3})^k + {2 \over 3} \sum_{k = 1}^{n-1} ({2 \over 3})^k \cdot k = {({2 \over 3})^{n+1}-{2 \over 3}\over {2 \over 3}-1} + {2 \over 3}S(n-1)\\
+dar\ &S(n) = n({2 \over 3})^n+S(n-1)\\
+\Rightarrow &2-3({2 \over 3})^{n+1} + {2 \over 3}S(n-1) = n({2 \over 3})^n+S(n-1)\\
+&S(n-1)=3(2-3({2 \over 3})^{n+1}-n({2 \over 3})^n)=6-3({2 \over 3})^n(n+2)
 \end{aligned}$$
 
-$$T(n)=2^h+n \cdot log(n) \cdot (2^h-1) - log(3) \cdot (2^h(h-2)+2)$$
-dar $h \ll n \cdot log(n)$
-$$\Rightarrow T(n) \in \Theta(n \cdot log(n) \cdot 2^h) = \Theta(n \cdot log(n) \cdot 2^{log_3(n)})$$
+$$T(n)=\underbrace{2^h}_{O(n)}+\underbrace{3n \cdot log(n) \cdot (1-({2 \over 3})^h)}_{\Theta(n \cdot log(n))} - log(3) \cdot (6-\underbrace{3({2 \over 3})^h(h+2)}_{O(1)})$$
+
+$$\Rightarrow T(n) \in \Theta(n \cdot log(n))$$
 
 # Bibliografie
