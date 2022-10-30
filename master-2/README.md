@@ -4,7 +4,7 @@
 >
 > $T(i) \in \Theta(1), \forall i \in \mathbb{N}^*, i < b$^[Pentru simplitatea formulelor am folosit și cazul de bază pentru $n=0$.]
 >
-> $f(n) \in O(n^p)$
+> $f(n) \leq n^p, \forall n \in \mathbb{N}$
 
 Notăm $h = \left\lfloor {n \over b} \right\rfloor$.
 
@@ -23,8 +23,8 @@ $$\boxed{\Rightarrow T(n) = \textcolor{blue}{a^{\lfloor {n \over b} \rfloor} \cd
 
 $$\textcolor{teal}{
    Q(n) = 
-   \sum_{k = 0}^{h - 1} a^k \cdot f(n -k \cdot b) =
-   \sum_{k = 0}^{h - 1} a^k O((n - k \cdot b)^p) =
+   \sum_{k = 0}^{h - 1} a^k \cdot f(n -k \cdot b) \leq
+   \sum_{k = 0}^{h - 1} a^k (n - k \cdot b)^p =
    \sum_{k = 0}^{h - 1} a^k O(n^p)
 }$$
 
@@ -49,9 +49,9 @@ $$
 
 $$\textcolor{blue}{a^{\lfloor {n \over b} \rfloor} \cdot \Theta(1)} =
 \begin{cases}
-   O(1) & a < 1 \\
-   O(n) & a = 1 \\
-   O(a^{\lfloor {n \over b} \rfloor}) & a > 1
+   \Theta(1) & a < 1 \\
+   \Theta(n) & a = 1 \\
+   \Theta(a^{\lfloor {n \over b} \rfloor}) & a > 1
 \end{cases}
 $$
 
@@ -63,34 +63,3 @@ $$\boxed{T(n) =
    O(a^{\lfloor {n \over b} \rfloor} \cdot n^p) & a > 1
 \end{cases}
 }$$
-
-<!-- 
-$$
-\lim_{n \to \infty}{{\textcolor{teal}{
-   \sum_{k = 0}^{h - 1} a^k \cdot f(n -k \cdot b)
-}} \over
-   c \cdot n^p
-} = 
-\lim_{n \to \infty}{
-   \sum_{k = 0}^{h - 1} a^k \cdot {f(n -k \cdot b) \over c \cdot n^p}
-} = 
-\lim_{n \to \infty}{ {1 \over c}
-   \sum_{k = 0}^{h - 1} a^k \cdot (1 - {k \cdot b \over n})^p
-}
-= L
-$$
-
-Fie $x_k = a^k \cdot {f(n -k \cdot b) \over c \cdot n^p}, k = \overline{1, h-1}$.
-
-$$lim_{k \to \infty}{x_n} = O(a^k)$$
-
-$$\Rightarrow
-L = {1 \over c} \sum_{k = 0}^{h - 1} O(a^k) = O\left({a^h - 1 \over a - 1}\right)
-$$
-
-$$\Rightarrow
-{\textcolor{teal}{
-   \sum_{k = 0}^{h - 1} a^k \cdot f(n -k \cdot b)
-}} =
-O\left({a^h - 1 \over a - 1} n^p \right)
-$$ -->
