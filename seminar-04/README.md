@@ -84,6 +84,8 @@ Ca la exercițiul 3, pentru $k=a$.
 # Exercițiul 5
 
 > $T(n) = 2T({n \over 3}) + n \cdot log(n)$
+> 
+> $T(1), T(2) \in Theta(1)$
 
 Identificăm:
 
@@ -102,21 +104,44 @@ $$\begin{aligned}
 
 $$\begin{aligned}
 T(n) &= 2^h + \sum_{k = 0}^{h - 1} ({2 \over 3})^k n \cdot log({n \over 3^k}) = 2^h + n\sum_{k = 0}^{h - 1} ({2 \over 3})^k \cdot (log(n)-log(3^k))\\
-&=2^h + n \cdot log(n)\sum_{k = 0}^{h - 1} ({2 \over 3})^k - \sum_{k = 0}^{h - 1} ({2 \over 3})^k \cdot k \cdot log(3)
+&=2^h + n \cdot log(n)\sum_{k = 0}^{h - 1} ({2 \over 3})^k - log(3) \sum_{k = 0}^{h - 1} ({2 \over 3})^k \cdot k
 \end{aligned}$$
 
-Folosim :
+Folosim:
 
-$$\sum_{k = 0}^{h - 1} ({2 \over 3})^k = {({2 \over 3})^h-1 \over {2 \over 3} - 1} = 3-3({2 \over 3})^h$$
+$$\sum_{k = 0}^{h - 1} ({2 \over 3})^k = {({2 \over 3})^h-1 \over {2 \over 3} - 1} = 2-3({2 \over 3})^h$$
+
+Fie:
+
+$$S(n) =\sum_{k = 1}^{n} ({2 \over 3})^k \cdot k$$
+
+Rescriem această sumă în două feluri:
 
 $$\begin{aligned}
-fie\ &S(n)=\sum_{k = 1}^{n} ({2 \over 3})^k \cdot k = \sum_{k = 1}^{n} ({2 \over 3})^k + {2 \over 3} \sum_{k = 1}^{n-1} ({2 \over 3})^k \cdot k = {({2 \over 3})^{n+1}-{2 \over 3}\over {2 \over 3}-1} + {2 \over 3}S(n-1)\\
-dar\ &S(n) = n({2 \over 3})^n+S(n-1)\\
-\Rightarrow &2-3({2 \over 3})^{n+1} + {2 \over 3}S(n-1) = n({2 \over 3})^n+S(n-1)\\
-&S(n-1)=3(2-3({2 \over 3})^{n+1}-n({2 \over 3})^n)=6-3({2 \over 3})^n(n+2)
+S(n) &= \sum_{k = 1}^{n} ({2 \over 3})^k \cdot (1 + (k - 1)) \\
+&= \sum_{k = 1}^{n} ({2 \over 3})^k + {2 \over 3} \sum_{k = 1}^{n-1} ({2 \over 3})^k \cdot (k-1) \\
+&= \sum_{k = 1}^{n} ({2 \over 3})^k + {2 \over 3} \sum_{k = 1}^{n-1} ({2 \over 3})^k \cdot k \\
+&= {({2 \over 3})^{n+1}-{2 \over 3}\over {2 \over 3}-1} + {2 \over 3}S(n-1) \\
+&= 2-3({2 \over 3})^{n+1} + {2 \over 3}S(n-1)
 \end{aligned}$$
 
-$$T(n)=\underbrace{2^h}_{O(n)}+\underbrace{3n \cdot log(n) \cdot (1-({2 \over 3})^h)}_{\Theta(n \cdot log(n))} - log(3) \cdot (6-\underbrace{3({2 \over 3})^h(h+2)}_{O(1)})$$
+Și o mai rescriem astfel:
+
+$$\begin{aligned}
+S(n) &= \sum_{k = 1}^{n - 1} ({2 \over 3})^k k + n({2 \over 3})^n \\
+&= S(n-1) + n({2 \over 3})^n
+\end{aligned}$$
+
+Apoi egalăm cele două forme:
+
+$$\begin{aligned}
+S(n-1)+n({2 \over 3})^n &= 2-3({2 \over 3})^{n+1} + {2 \over 3}S(n-1) \\
+{1 \over 3}S(n-1) &= 2-3({2 \over 3})^{n+1}-n({2 \over 3})^n \\
+S(n-1) &= 3(2-3({2 \over 3})^{n+1}-n({2 \over 3})^n) \\
+S(n-1)&=6-3({2 \over 3})^n(2+n)
+\end{aligned}$$
+
+$$T(n)=\underbrace{2^h}_{\Theta(n)}+\underbrace{n \cdot log(n) \cdot (2-3({2 \over 3})^h)}_{\Theta(n \cdot log(n))} - log(3) \cdot (6-\underbrace{3({2 \over 3})^h(h+2)}_{\Theta(n)})$$
 
 $$\Rightarrow T(n) \in \Theta(n \cdot log(n))$$
 
