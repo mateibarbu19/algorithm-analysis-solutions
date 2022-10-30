@@ -1,4 +1,4 @@
-DOC=Seminar-02-Sol.pdf
+DOC=Seminar-04-Sol.pdf
 CONFIG=../config_output.yaml
 HEAD=../utils/head.tex
 
