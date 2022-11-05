@@ -85,7 +85,7 @@ Ca la exercițiul 3, pentru $k=a$.
 
 > $T(n) = 2T({n \over 3}) + n \cdot log(n)$
 > 
-> $T(1), T(2) \in Theta(1)$
+> $T(1), T(2) \in \Theta(1)$
 
 Identificăm:
 
@@ -143,6 +143,27 @@ S(n-1)&=6-3({2 \over 3})^n(2+n)
 
 $$T(n)=\underbrace{2^h}_{\Theta(n)}+\underbrace{n \cdot log(n) \cdot (2-3({2 \over 3})^h)}_{\Theta(n \cdot log(n))} - log(3) \cdot (6-\underbrace{3({2 \over 3})^h(h+2)}_{\Theta(n)})$$
 
-$$\Rightarrow T(n) \in \Theta(n \cdot log(n))$$
+$$\Rightarrow T(n) \in \Theta(n \cdot \log n)$$
+
+# Exercițiul 14
+
+> $T(n) = 4T({n \over 2}) + T({n \over 4}) + {n^2 \over \log_2 n}$
+> 
+> $T(1), T(2), T(3) \in \Theta(1)$
+
+![Arborele de recurență pentru $T(n)$](res/ex14_tree.svg)
+
+$$\begin{aligned}
+T(n) &= \Theta(n^{\log_2 4}) + c \sum_{k = 0}^{\log_2 (n) - 1} 4^k{({n \over 2^k})^2 \over \log_2({n \over 2^k})} \\
+T(n) &= \Theta(n^2) + c \sum_{k = 0}^{\log_2 (n) - 1} 4^k{{n^2 \over 4^k} \over \log_2 n - \log_2 2^k} \\
+&= \Theta(n^2) + c \cdot n^2 \sum_{k = 0}^{\log_2 (n) - 1} {1 \over \log_2(n) - k} \\
+&= \Theta(n^2) + c \cdot n^2 \underbrace{(1 + {1 \over 2} + \ldots + {1 \over \log_2n}}_{\Theta(\log \log n)})
+\end{aligned}$$
+
+Am folosit următorul fapt cunoscut:
+
+$$\sum_{i = 1}^{m} {1 \over i} = \Theta(\log m)$$
+
+$$\Rightarrow T(n) = \Theta(n^2 \log \log n)$$
 
 # Bibliografie

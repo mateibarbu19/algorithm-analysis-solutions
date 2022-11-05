@@ -1,0 +1,161 @@
+% \documentclass[tikz,border=10pt]{standalone}
+% \usepackage{forest}
+% \begin{document}
+
+% \begin{forest}
+%   annotate/.style={% style should be applied to the rightmost node at each level for which an arrow and annotation is required
+%       if level=1{% first level of tree (apparent root - the real root is added automatically at level 0)
+%         right just=$cn^2$,
+%       }{
+%         if n children=0{% terminal nodes
+%           right just=$\Theta(n^{\log_43})$
+%         }{% other nodes (if annotated)
+%           right just/.wrap pgfmath arg={$(\frac{3}{16})^##1cn^##1$}{level()},
+%         },
+%       },
+%       tikz+/.wrap pgfmath arg={\draw [->] (.east) -- (right just ##1.west);}{level()},
+% 	},
+% 	  for tree={
+%     align=center
+%   }
+%   [$c \cdot n^2$
+%     [$c ({n \over 2})^2$
+%       [$c ({n \over 2^2})^2$
+% 	  	[\vdots
+% 	  		[\vdots
+% 	  			[$c ({n \over 2^{h_1}})^2$]
+% 			]
+%         ]
+%         [\vdots]
+%       ]
+%       [$c ({n \over 2 \cdot 4})^2$
+% 	  	[\vdots]
+% 		[\vdots]
+%       ]
+%     ]
+%     [$c ({n \over 4})^2$
+%       [$c ({n \over 2 \cdot 4})^2$
+% 		[\vdots]
+% 		[\vdots]
+%       ]
+%       [$c ({n \over 4^2})^2$
+% 		[\vdots]
+% 		[\vdots
+% 			[$c ({n \over 4^{h_2}})^2$ ]
+% 		]
+%       ]
+%     ]
+%   ]
+% \end{forest}
+
+
+% \end{document}
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{../../utils/justtrees}% version 0.5
+\usetikzlibrary{decorations.pathreplacing}
+\begin{document}
+\begin{justtree}
+  {
+    just format={xshift=1.5em},
+    annotate/.style={
+      if level=1{
+        right just=$cn^2$,
+      }{
+        if n children=0{
+          right just=$\Theta \left( n^{\log_2 4} \right)$
+        }{
+          right just/.wrap pgfmath arg={$4^##1 c {({n \over 2^##1})^2 \over \log_2({n \over 2^##1})}$}{int(level("!u"))},
+        },
+      },
+      tikz+/.wrap pgfmath arg={\draw [->] (.east) -- (right just ##1.west);}{level()},
+    },
+    where n children=0{
+      !u.no edge,
+      !u.l sep-=10pt,
+      l sep-=5pt,
+      edge={dotted},
+    }{},
+    for tree={
+      math content,
+      delay={
+        if level=1{
+          content=cn^2,
+          tikz+={
+            \draw [<->] (!F.south west) +(-2.5em,0) coordinate (c) -- (.north -| c) node [midway, left] {$\log_2 n$};
+            \draw [decorate, decoration={brace, mirror}] (!F.south west) -- (!L.south east) node [midway, below] {$n^{\log_2 4}$};
+          },
+        }{
+          if n children=0{
+            content=\Theta(1),
+            delay={
+              !u.content=,
+            }
+          }{
+            if level=0{}{
+              content/.wrap pgfmath arg={c{({n \over #1})^2 \over \log_2({n \over #1})}}{int(2^(level("!u")))},
+            }
+          }
+        }
+      },
+    },
+  }
+  [, annotate
+    [
+      [
+        [[]]
+      ]
+      [
+        [[]]
+      ]
+      [
+        [[]]
+      ]
+	  [
+        [[]]
+      ]
+    ]
+    [
+      [
+        [[]]
+      ]
+      [
+        [[]]
+      ]
+      [
+        [[]]
+      ]
+	  [
+        [[]]
+      ]
+    ]
+	[
+      [
+        [[]]
+      ]
+      [
+        [[]]
+      ]
+      [
+        [[]]
+      ]
+	  [
+        [[]]
+      ]
+    ]
+    [, annotate
+      [
+        [[]]
+      ]
+      [
+        [[]]
+      ]
+	  [
+        [[]]
+      ]
+      [, annotate
+        [[, annotate]]
+      ]
+    ]
+  ]
+\end{justtree}
+\end{document}

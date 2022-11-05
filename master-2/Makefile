@@ -1,6 +1,6 @@
 DOC=Seminar-Master2-Sol.pdf
 CONFIG=../config_output.yaml
-HEAD=../utils/head.tex
+UTILS=../utils
 
 include ../Makefile
 

@@ -1,3 +1,6 @@
 *.vs*
 *_codebraid*
 *.pdf
+*.html
+*.log
+*.aux
