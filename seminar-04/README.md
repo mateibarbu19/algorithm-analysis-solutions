@@ -145,6 +145,63 @@ $$T(n)=\underbrace{2^h}_{\Theta(n)}+\underbrace{n \cdot log(n) \cdot (2-3({2 \ov
 
 $$\Rightarrow T(n) \in \Theta(n \cdot \log n)$$
 
+# Exercițiul 7
+
+> $T(n) = T(\sqrt n) + \log n$
+>
+> $T(1) \in \Theta(1)$
+
+Facem o schimbare de variabilă:
+
+$$n = 2^m$$
+$$m = \log_2 n$$
+
+$$\begin{aligned}
+T(2^m) &= T(\sqrt2^m) + m \\
+   &= T(2^{m \over 2}) + m
+\end{aligned}$$
+
+Notăm:
+
+$$\begin{aligned}
+S(m) &= T(2^m) \\
+&= S({m \over 2}) + m
+\end{aligned}$$
+
+Știm din recurența cunoscută care modelează algoritmul de sortare prin interclasare că:
+
+$$S(m) \in \Theta(m \log m)$$
+
+Deci:
+
+$$T(n) \in \Theta(\log n \cdot \log \log n)$$
+
+# Exercițiul 12
+
+> $T(n) = T({n \over 2}) + T({n \over 4}) + n^2$
+>
+> $T(1), T(2), T(3) \in \Theta(1)$
+
+Observăm că funcția este crescătoare, fapt ce se poate demonstra prin inducție.
+
+Deci vom majora și minora termenul general cu niște recurențe mai ușor de calculat.
+
+$$\underbrace{T({n \over 4}) + n^2}_{\Theta(n^2)} \leq T(n) \leq \underbrace{2T({n \over 2}) + n^2}_{\Theta(n^2)}$$
+
+$$\Rightarrow T(n) \in \Theta(n^2)$$
+
+# Exercițiul 13
+
+> $T(n) = T({n \over 2} + \log_2 n) + n$
+>
+> $T(1) \in \Theta(1)$
+
+Folosim inegalitatea:
+
+$$\log_2 n \leq {n \over 4}, \forall n \geq 16$$
+
+$$\underbrace{T({n \over 2}) + n}_{\Theta(n)}\leq T(n) \leq \underbrace{T({3n \over 4}) + n}_{\Theta(n)}$$
+
 # Exercițiul 14
 
 > $T(n) = 4T({n \over 2}) + T({n \over 4}) + {n^2 \over \log_2 n}$
