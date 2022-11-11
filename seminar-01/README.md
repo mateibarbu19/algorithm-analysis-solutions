@@ -12,10 +12,6 @@ Rescriem ipoteza în termeni matematici:
 
 Notăm cu $\mathcal{R}$ mulțimea tuturor mulțimilor recursive, cu $\mathcal{RE}$ mulțimea tuturor mulțimilor recursive-enumerabile, iar $\mathcal{P}$ cu este mulțimea tuturor programelor.
 
-Din 1 și 2 ar fi util să ne facem un desen ca să ne putem gândi mai bine.
-
-![A este mulțimea albă, B cea roșie, iar chenarul mare negru mulțimea numerelor naturale.](https://upload.wikimedia.org/wikipedia/commons/7/73/Venn10.svg){ width=15% }
-
 Din 3 rezultă că $\exists P_A, P_B \in \mathcal{P}$, astfel încât
 
 $$P_A(x) = \begin{cases}
@@ -76,8 +72,6 @@ Fie $A_1, A_2, \ldots, A_n \in \mathcal{RE}$.
 
 1. $\displaystyle\bigcap_{i=1}^n A_i = \emptyset$
 2. $\displaystyle\bigcup_{i=1}^n A_i = \mathbb{N}$
-
-\newpage
 
 $$P_A(i, x) = \begin{cases}
    1 &\text{dacă } x \in A_i \\
