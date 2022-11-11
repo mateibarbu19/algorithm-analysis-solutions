@@ -253,8 +253,8 @@ Acum, trebuie să ne imaginăm cum sunt distribuite elementele din $A$, respecti
 Dacă $x + 1 \in A \cup B$, atunci:
 
 $$x + 1 \in \begin{cases}
-   A &\text{dacă } x \in B \\
    B &\text{dacă } x \in A \\
+   A &\text{altfel} \\
 \end{cases}$$
 
 Dacă $x \in A \cup B$, atunci $y_x = max(\{ n \in \mathbb{N} | n \notin A \cup B, n < x \})$ (cu alte cuvinte, $y_x$ fiind cel mai mare număr mai mic decât $x$ care nu aparține reuniunii), $y_x + 1 \in A$. (Altfel s-ar contrazice paragraful anterior și $y_x \in A \cup B$, contradicție!)
