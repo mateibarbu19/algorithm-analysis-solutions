@@ -129,3 +129,149 @@ qsume(M, N, Q) {
 ```
 Pentru fiecare element din multime alegem daca sa il folosim in suma sau nu, obtinand toate sumele posibile. Daca exista o submultime, acea ramura din arborele nedeterminist va intoarce succes.
 **O(N)**
+
+# Exercitiul 7
+
+> **Problema comis-voiajorului (TSP):**
+> 
+> Se da o multime de orase conectate intre ele prin drumuri. Exista vreo modalitate ca un comis voiajor sa viziteze toate orasele o singura data si sa se intoarca de unde a plecat?
+
+```
+// V = noduri, E = muchii
+voiajor(V, E){
+    drum = vector(|V|+1)
+    for(i = 0 .. |V|-1)
+        drum[i] = choice(V \ drum)
+    drum[|V|] = drum[0]
+
+    for(i = 1 .. |V|)
+        if((drum[i-1], drum[i]) nu e in E)
+            fail
+    success
+}
+```
+Generam o permutare de noduri, apoi verificam ca aceasta formeaza un drum in graf.
+**O(V)**
+
+# Exercitiul 8
+
+> Plasati 8 regine pe o tabla de sah fara ca acestea sa se atace.
+
+```
+regine() {
+    verticala = map<int,int>
+    orizontala = map<int,int>
+    diag1 = map<int,int> //diagonala principala
+    diag2 = map<int,int> //diagonala secundara
+
+    for(i = 0 .. 7) {
+        X = choice(0..7)
+        Y = choice(0..7)
+        if(verticala[X]++ || orizontala[Y]++ || diag1[X-Y]++ || diag2[X+Y]++)
+            fail
+    }
+
+    success
+}
+```
+Alegem o pozitie pentru fiecare regina, apoi verificam daca acea linie / coloana / diagonala este deja ocupata.
+**O(n)** (numarul de linii / dame)
+
+# Exercitiul 9
+
+> **Problema subgrafurilor izomorfe**:
+>
+> Doua grafuri **G1(V1, E1)** si **G2(V2, E2)** sunt izomorfe daca exista o functie bijectiva **f : V1 -> V2** astfel incat: muchia **(u, v)** este in **E1** <=> muchia **(f(u), f(v))** este in **E2** (obs: doua grafuri pot fi izomorfe daca au acelasi numar de noduri). Dandu-se doua grafuri, **G1** si **G2**, exista un subgraf in **G1** care sa fie izomorf cu **G2**?
+
+```
+subizomorf(V1, E1, V2, E2) {
+    f = map<nod,nod>
+    alese = {}
+
+    for(nod1 in V1) {
+        if(choice({adevarat, fals})) {
+            f[nod1] = choice(V2 \ alese)
+            alese = alese U f[nod1]
+        }
+    }
+
+    for((u, v) in E1)
+        if((u si v in f) si ((f[u], f[v]) nu e in E2))
+            fail
+    success
+}
+```
+Pentru fiecare nod din **G1** alegem daca este sau nu in subgraf, apoi ii alegem un corespondent in **G2**. Pentru fiecare muchie din subgraf, verificam ca muchia intre corespondenti exista in **G2**.
+**O(V+E)**
+
+# Exercitiul 10
+
+> **Independent set:**
+> 
+> Dandu-se un graf **G(V, E)** si un numar **k** din **Z**, exista o multime **S** de **k** noduri astfel incat orice muchie are cel mult un capat in **S**?
+
+```
+independent(V, E, k) {
+    S={}
+    for(i = 1 .. k) {
+        S = S U choice(V \ S)
+    }
+
+    for((u, v) in E)
+        if((u in S) si (v in S))
+            fail
+    success
+}
+```
+Ne alegem o submultime de **k** noduri si verificam conditia.
+**O(k + E)**
+
+# Exercitiul 11
+
+> **Problema partitionarii:**
+>
+> Dandu-se o multime de **t** numere intregi, exista o impartire a elementelor sale in doua submultimi **S1** si **S2** care sa aiba sume egale?
+
+```
+// M = multimea
+partitionare(M) {
+    s = 0 // suma totala
+    s1 = 0 // suma pentru S1
+
+    for(x in M) {
+        s += x
+        if(choice({adevarat, fals}))
+            s1+=x
+    }
+
+    if(s == 2*s1)
+        success
+    else
+        fail
+}
+```
+Imi aleg submultimea **S1**. Din moment ce suma pentru **S1** = suma pentru **S2**, verificam ca **2\*s1 = s1 + s2 = s**.
+**O(|M|)**
+
+# Exercitiul 12
+
+> SAT(Boolean Satisfiability Problem):
+>
+> Se da o expresie booleana in forma normala conjunctiva - o conjunctie de clauze, unde clauzele sunt disjunctii. Exemplu **(x1 v ~x2) ^ (~x1 v x2 v x3) ^ ~x1**. Sa se determine daca exista o posibilitate de atribuire a variabilelor astfel incat expresia sa fie adevarata.
+
+```
+// V = variabile, C = clauze
+sat(V, C) {
+    A = map<variabila, bool> // atribuire
+
+    for(x in V)
+        A[x] = choice({adevarat, fals})
+
+    for(clauza in C)
+        if(A nu satisface clauza)
+            fail
+    success
+}
+```
+Atribui fiecarei variabile o valoare de adevar si verific daca satisfac toate clauzele.
+**O(|V| * |C|)**
