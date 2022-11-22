@@ -6,15 +6,18 @@ consecutive de lungime mai mare decat **k**?
 
 ```
 // V = vectorul, n = nr de elemente din V
-f(V, n, k) {
+secv(V, n, k) {
+    // generare
     i = choice(0 .. n-k-1)
+
+    // testare
     for(j = i+1 .. i+k)
         if(V[j] != V[j-1])
             fail
     success
 }
 ```
-Incearca toate pozitiile de start si verifica daca incepe o secventa de k elemente egale.
+Incearca toate pozitiile de start si verifica daca incepe o secventa de **k** elemente egale.
 **O(k)**
 
 
@@ -25,15 +28,16 @@ nodul **v** care are lungimea mai mica decat o valoare data **dim**.
 
 ```
 // G = graful
-f(G, u, v, dim) {
+drum(G, u, v, dim) {
+    // testare
     if(u == v)
         success
-    
     if(dim <= 1) 
         fail
 
+    // generare
     k = choice(vecinii lui u in G)
-    f(G, k, v, dim-1)
+    drum(G, k, v, dim-1)
 }
 ```
 
@@ -49,13 +53,14 @@ Ne alegem un vecin si rezolvam recursiv pana cand ajungem la **v** sau avem un *
 ```
 // V = noduri, E = muchii, k = nr culori
 colorare(V, E, k) {
+    // generare
     for(nod in V)
         culoare[nod] = choice(k)
     
+    // testare
     for((u, v) in E)
         if(culoare[u]==culoare[v])
             fail
-    
     success
 }
 ```
@@ -70,10 +75,12 @@ Asignam o culoare fiecarui nod si testam daca avem o colorare valida. **O(V+E)**
 
 ```
 kclica(V, E, k) {
+    // generare
     clica = {}
     for(i = 1 .. k)
         clica = clica U choice(V \ clica)
     
+    // testare
     for(i in clica)
         for(j in clica \ {i})
             if((i, j) nu e in E)
@@ -93,10 +100,12 @@ Alegem **k** noduri, apoi verificam ca formeaza o clica valida.
 
 ```
 kacoperire(V, E, k) {
+    // generare
     acoperire = {}
     for(i = 1 .. k)
         acoperire = acoperire U choice(V \ acoperire)
     
+    // testare
     for((i, j) in E)
         if(i si j nu sunt in acoperire)
             fail
@@ -116,11 +125,13 @@ Alegem **k** noduri, apoi verificam ca formeaza o acoperire valida.
 ```
 // M = multimea
 qsume(M, N, Q) {
+    // generare
     sum = 0
     for(x in M)
         if(choice({adevarat, fals}))
             sum += x
     
+    // testare
     if(sum == Q)
         success
     else
@@ -139,11 +150,13 @@ Pentru fiecare element din multime alegem daca sa il folosim in suma sau nu, obt
 ```
 // V = noduri, E = muchii
 voiajor(V, E){
+    // generare
     drum = vector(|V|+1)
     for(i = 0 .. |V|-1)
         drum[i] = choice(V \ drum)
     drum[|V|] = drum[0]
 
+    // testare
     for(i = 1 .. |V|)
         if((drum[i-1], drum[i]) nu e in E)
             fail
@@ -159,16 +172,16 @@ Generam o permutare de noduri, apoi verificam ca aceasta formeaza un drum in gra
 
 ```
 regine() {
-    verticala = map<int,int>
-    orizontala = map<int,int>
-    diag1 = map<int,int> //diagonala principala
-    diag2 = map<int,int> //diagonala secundara
-
     for(i = 0 .. 7) {
+        // generare
         X = choice(0..7)
         Y = choice(0..7)
-        if(verticala[X]++ || orizontala[Y]++ || diag1[X-Y]++ || diag2[X+Y]++)
+
+        // testare
+        if(verticala[X]|| orizontala[Y]++ || diagP[X-Y] || diagS[X+Y])
             fail
+        
+        verticala[x] = orizontala[Y] = diagP[X-Y] = diagS[X+Y] = adevarat
     }
 
     success
@@ -185,9 +198,10 @@ Alegem o pozitie pentru fiecare regina, apoi verificam daca acea linie / coloana
 
 ```
 subizomorf(V1, E1, V2, E2) {
-    f = map<nod,nod>
+    f = dictionar<nod,nod>
     alese = {}
 
+    //  generare
     for(nod1 in V1) {
         if(choice({adevarat, fals})) {
             f[nod1] = choice(V2 \ alese)
@@ -195,6 +209,7 @@ subizomorf(V1, E1, V2, E2) {
         }
     }
 
+    // testare
     for((u, v) in E1)
         if((u si v in f) si ((f[u], f[v]) nu e in E2))
             fail
@@ -212,6 +227,7 @@ Pentru fiecare nod din **G1** alegem daca este sau nu in subgraf, apoi ii alegem
 
 ```
 independent(V, E, k) {
+    // generare
     S={}
     for(i = 1 .. k) {
         S = S U choice(V \ S)
@@ -238,12 +254,14 @@ partitionare(M) {
     s = 0 // suma totala
     s1 = 0 // suma pentru S1
 
+    // generare
     for(x in M) {
         s += x
         if(choice({adevarat, fals}))
             s1+=x
     }
 
+    // testare
     if(s == 2*s1)
         success
     else
@@ -262,11 +280,13 @@ Imi aleg submultimea **S1**. Din moment ce suma pentru **S1** = suma pentru **S2
 ```
 // V = variabile, C = clauze
 sat(V, C) {
-    A = map<variabila, bool> // atribuire
+    A = dictionar<variabila, bool> // atribuire
 
+    // generare
     for(x in V)
         A[x] = choice({adevarat, fals})
 
+    // testare
     for(clauza in C)
         if(A nu satisface clauza)
             fail
