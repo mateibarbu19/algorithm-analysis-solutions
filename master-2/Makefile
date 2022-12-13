@@ -1,11 +1,4 @@
-DOC=Seminar-Master2-Sol.pdf
-CONFIG=../config_output.yaml
+DOC=$(CURRENT_DIR)-sol.pdf
 UTILS=../utils
 
 include ../Makefile
-
-build-doc: README.pdf
-	mv README.pdf $(DOC)
-
-clean-doc: clean
-	rm -f $(DOC)
