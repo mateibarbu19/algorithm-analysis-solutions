@@ -12,10 +12,6 @@ Rescriem ipoteza în termeni matematici:
 
 Notăm cu $\mathcal{R}$ mulțimea tuturor mulțimilor recursive, cu $\mathcal{RE}$ mulțimea tuturor mulțimilor recursive-enumerabile, iar $\mathcal{P}$ cu este mulțimea tuturor programelor.
 
-Din 1 și 2 ar fi util să ne facem un desen ca să ne putem gândi mai bine.
-
-![A este mulțimea albă, B cea roșie, iar chenarul mare negru mulțimea numerelor naturale.](https://upload.wikimedia.org/wikipedia/commons/7/73/Venn10.svg){ width=15% }
-
 Din 3 rezultă că $\exists P_A, P_B \in \mathcal{P}$, astfel încât
 
 $$P_A(x) = \begin{cases}
@@ -76,8 +72,6 @@ Fie $A_1, A_2, \ldots, A_n \in \mathcal{RE}$.
 
 1. $\displaystyle\bigcap_{i=1}^n A_i = \emptyset$
 2. $\displaystyle\bigcup_{i=1}^n A_i = \mathbb{N}$
-
-\newpage
 
 $$P_A(i, x) = \begin{cases}
    1 &\text{dacă } x \in A_i \\
@@ -253,8 +247,8 @@ Acum, trebuie să ne imaginăm cum sunt distribuite elementele din $A$, respecti
 Dacă $x + 1 \in A \cup B$, atunci:
 
 $$x + 1 \in \begin{cases}
-   A &\text{dacă } x \in B \\
    B &\text{dacă } x \in A \\
+   A &\text{altfel} \\
 \end{cases}$$
 
 Dacă $x \in A \cup B$, atunci $y_x = max(\{ n \in \mathbb{N} | n \notin A \cup B, n < x \})$ (cu alte cuvinte, $y_x$ fiind cel mai mare număr mai mic decât $x$ care nu aparține reuniunii), $y_x + 1 \in A$. (Altfel s-ar contrazice paragraful anterior și $y_x \in A \cup B$, contradicție!)
