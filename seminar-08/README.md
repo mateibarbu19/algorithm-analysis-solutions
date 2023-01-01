@@ -13,10 +13,10 @@ celelalte noduri.
 def F(G):
     V, E = G
     # V conține noduri numerotate de la 0 la len(V) - 1
-    # E conține muchiile
+    # E conține muchiile, de tip (nod1, nod2).
 
-    V2 = V.append(len(V))
-    E2 = E + [(v, len(V)) for v in V]
+    V2 = V.append(len(V)) # adăugăm noul nod
+    E2 = E + [(v, len(V)) for v in V] # unim nodul cu toate muchiile
 
     return (V2, E2)
 ```
@@ -45,80 +45,117 @@ graful care rămâne (cel original) este $3$-Colorabil.
 # Exercitiul 2
 $$ \text{Partition} \leq_p \text{q-Sum} $$
 
-Inputul pentru Partition este o lista, iar pentru q-Sum este o lista si un intreg, deci:
+Inputul pentru `Partition` este o listă, iar pentru `q-Sum` este o lista şi un
+întreg, deci:
 
 $$ F : List \rightarrow (List, int) $$
 
-F(List l) {
-    let q = sum(l) / 2
-    return l, q
-}
+```python
+def F(L: list):
+    q = sum(L) / 2
+    return L, q
+```
+
+Complexitatea temporală a lui `F` este liniară.
 
 $$ \text{Partition}(A) = 1 \iff \text{q-Sum}(F(A)) = 1 $$
 
+**Analizăm implicația directă:**
+
 $$ \text{Partition}(A) = 1 \Rightarrow \text{q-Sum}(F(A)) = 1 $$
 
-Daca partition este rezolvabila, inseamna ca exista sectiuni S1 si S2 astfel incat A = S1 U S2, si sum(S1) = sum(S2), deci sum(A) = 2 * sum(S1).
+Dacă `Partition` este rezolvabilă, înseamnă că există secţiuni `S1` şi `S2`
+astfel încat `A = S1.union(S2)`, si `sum(S1) = sum(S2)`, deci `sum(A) = 2 *
+sum(S1)`.
 
-Pentru ca am setat q sa fie sum(A) / 2 si lista sa fie aceeasi (A), inseamna ca S1 respecta conditia din q-Sum.
+Pentru că am setat `q` să fie `sum(A) / 2` şi lista să fie aceeaşi (`A`),
+înseamnă că `S1` respectă condiţia din `q-Sum`.
+
+**Analizăm implicația inversă:**
 
 $$ \text{Partition}(A) = 1 \Leftarrow \text{q-Sum}(F(A)) = 1 $$
 
-q-Sum este satisfacuta, deci exista o sectiune S din A, care insumata sa fie sum(A) / 2. Inseamna ca ce ramane in afara lui S (A - S) va insuma tot la sum(A) / 2, deci exista doua sectiuni care sa aiba aceeasi suma, respectand conditia de la Partition.
+`q-Sum` este satisfacută, deci există o secţiune `S` din `A`, care însumată să
+fie `sum(A) / 2`. Înseamnă că ce rămâne în afara lui `S` `(A - S)` va însuma tot
+la `sum(A) / 2`, deci există două secţiuni care să aibă aceeaşi sumă, respectând
+condiţia de la `Partition`.
 
 # Exercitiul 3
 $$ \text{Independent Set} \leq_p \text{Vertex Cover} $$
 
-Inputul pentru ambele este un graf si un intreg, deci:
+Inputul pentru ambele este un graf şi un întreg, deci:
 
 $$ F : (graf, int) \rightarrow (graf, int) $$
 
-F(G<V, E>, k) {
+```python
+def F(G, k: int):
+    V, _ = G
     return G, |V| - k
-}
+```
+
+Complexitatea temporală a lui `F` este liniară.
 
 $$ \text{Independent Set}(G, k) == 1 \iff \text{Vertex Cover}(F(G, k)) == 1 $$
 
-$$ \text{Independent Set}(G, k) == 1 \Rightarrow \text{Vertex Cover}(F(G, k)) == 1 $$
+**Analizăm implicația directă:**
 
-Daca Independent Set poate fi satisfacuta, inseamna ca oricare latura e = (u, v) apartinand lui E are cel mult un capat in S'. Ceea ce inseamna ca are cel putin un capat in V - S' = S. |S| = |V| - k', deci respecta conditia de la Vertex Cover.
+$$ \text{Independent Set}(G, k) == 1 \Rightarrow \text{Vertex Cover}(F(G, k)) ==
+1 $$
 
-$$ \text{Independent Set}(G, k) == 1 \Leftarrow \text{Vertex Cover}(F(G, k)) == 1 $$
+Daca `Independent Set` poate fi satisfacută, înseamnă că oricare latură `e = (u,
+v)` aparţinând lui `E` are cel mult un capăt în `S'`. Ceea ce înseamnă că are
+cel puţin un capăt în `V - S' = S`. `|S| = |V| - k'`, deci respectă condiţia de
+la `Vertex Cover`.
 
-Daca Vertex Cover poate fi satisfacuta, inseamna ca oricare latura e = (u, v) apartinand lui E are cel putin un capat in S. Ceea ce inseamna ca are cel mult un capat in V - S = S'. |S'| = |V| - k, deci respecta conditia de la Independent Set.
+**Analizăm implicația inversă:**
+
+$$ \text{Independent Set}(G, k) == 1 \Leftarrow \text{Vertex Cover}(F(G, k)) ==
+1 $$
+
+Daca `Vertex Cover` poate fi satisfacută, înseamnă că oricare latura `e = (u,
+v)` aparţinand lui `E` are cel puţin un capăt în `S`. Ceea ce înseamnă că are
+cel mult un capăt în `V - S = S'`. `|S'| = |V| - k`, deci respectă condiţia de
+la `Independent Set`.
 
 # Exercitiul 4
 $$ \text{Vertex Cover} \leq_p \text{Set Cover} $$
 
-Inputul pentru Vertex Cover este un graf si un intreg, iar pentru Set Cover este o lista, o lista de liste si un intreg.
+Inputul pentru `Vertex Cover` este un graf şi un întreg, iar pentru `Set Cover`
+este o listă, o listă de liste şi un întreg.
 
 $$ F : (graf, int) \rightarrow (list, list<list>, int) $$
 
-F(G<V, E>, k) {
-    let S = list(|V|)
-    for i in G:
-        for e = (u, v) in E:
+```python
+def F(G, k: int)
+    V, E = G
+    S = list(range(V))
+    for i in V:
+        for u, v in E:
             if u == i or v == i:
-                S[i].add(e)
+                S[i].add((u, v))
     return E, S, k
-}
+```
+
+Complexitatea temporală a lui `F` este liniară.
 
 $$ \text{Vertex Cover} \iff \text{Set Cover} $$
 
+**Analizăm implicația directă:**
+
 $$ \text{Vertex Cover} \Rightarrow \text{Set Cover} $$
 
-Daca Vertex Cover este satisfacuta, fiecare muchie are cel putin un nod in multimea de acoperire (S). Din constructia lui F, vedem ca muchiile nodurilor din aceasta lista sunt suficiente pentru a acoperi tot tot graful. Pentru ca multimea din problema de Set Cover este multimea muchiilor din graf (E), inseamna ca S[i] acopera intreaga lista.
+Dacă `Vertex Cover` este satisfacută, fiecare muchie are cel puţin un nod în
+mulţimea de acoperire `(S)`. Din construcţia lui `F`, vedem că muchiile
+nodurilor din această listă sunt suficiente pentru a acoperi tot graful. Pentru
+că mulţimea din problema `Set Cover` este mulţimea muchiilor din graf `(E)`,
+înseamnă că `S[i]` acoperă întreaga listă.
+
+**Analizăm implicația inversă:**
 
 $$ \text{Vertex Cover} \Leftarrow \text{Set Cover} $$
 
-Invers, daca Set Cover este rezolvabila, inseamna ca exista o multime de multimi C care, reunite, acopera toata multimea mare. Din constructia lui F, fiecare muchie din C are asociat in graf un nod. Multimea acestor noduri (S) contine noduri de pe fiecare muchie (prin definitia lui Set Cover), deci respecta conditia de Vertex Cover.
-
-
-# References
-[1] https://math.stackexchange.com/questions/3241339/how-to-prove-that-the-4-coloring-problem-is-np-complete
-
-[2] https://stackoverflow.com/questions/42063810/karp-reduction-from-partition-to-subset-sum
-
-[3] https://opendsa-server.cs.vt.edu/ODSA/Books/Everything/html/independentSet_to_vertexCover.html
-
-[4] http://www.cs.cornell.edu/courses/cs482/2007sp/NPComplete.pdf
+Invers, dacă `Set Cover` este rezolvabilă, înseamnă că există o mulţime de
+mulţimi `C` care, reunite, acoperă toată mulţimea mare. Din construcţia lui `F`,
+fiecare muchie din `C` are asociat în graf un nod. Mulţimea acestor noduri `(S)`
+conţine noduri de pe fiecare muchie (prin definiţia lui `Set Cover`), deci
+respectă condiţia de `Vertex Cover`.
