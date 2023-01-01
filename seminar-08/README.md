@@ -1,30 +1,46 @@
-# Exercitiul 1
-$$ \text{3-Colorare} \leq_p \text{4-Colorare} $$
+# Exercițiul 1
+
+$$ 3\text{-Colorare} \leq_p 4\text{-Colorare} $$
 
 Inputul pentru ambele probleme este un graf, deci:
 
 $$ F : G \rightarrow G $$
 
-La trecerea de la 3-Colorare la 4-Colorare, adaugam un nod nou, unit cu toate celelalte noduri.
+La trecerea de la 3-Colorare la 4-Colorare, adaugăm un nod nou, unit cu toate
+celelalte noduri.
 
-F(G<V, E>) {
-    V2 = V U {n + 1}
-    E2 = E U {(0, n + 1), (1, n + 1), ..., (n, n + 1)}
-    return G<V2, E2>
-}
+```python
+def F(G):
+    V, E = G
+    # V conține noduri numerotate de la 0 la len(V) - 1
+    # E conține muchiile
 
-F este polinomial (O(n))
+    V2 = V.append(len(V))
+    E2 = E + [(v, len(V)) for v in V]
 
-$$ \text{3-Colorare} \leq_p \text{4-Colorare} $$
-$$ \text{3-Colorare}(G) = 1 \iff \text{4-Colorare}(F(G)) = 1 $$
+    return (V2, E2)
+```
+
+Complexitatea temporală a lui `F` este liniară.
+
+$$ 3\text{-Colorare} \leq_p 4\text{-Colorare} $$
+$$ 3\text{-Colorare}(G) = 1 \iff 4\text{-Colorare}(F(G)) = 1 $$
+
+**Analizăm implicația directă:**
 
 $$ \text{3-Colorare}(G) = 1 \Rightarrow \text{4-Colorare}(F(G)) = 1 $$
 
-Pentru orice situatie in care graful se poate colora cu 3 culori, nodul nou va trebui maxim colorat cu o singura alta culoare, deci va respecta 4-Colorare.
+Pentru orice situație în care graful se poate colora cu $3$ culori, nodul nou va
+trebui colorat cu o singură *altă* culoare, deci va respecta $4$-Colorare.
 
-$$ \text{3-Colorare}(G) = 1 \Leftarrow \text{4-Colorare}(F(G)) = 1 $$
+**Analizăm implicația inversă:**
 
-Avem un nod (cel adaugat de noi, n + 1) care este conectat la toate celelalte noduri, deci trebuie sa aiba o culoare diferita fata de toate. Pentru ca problema este 4-Colorabila, inseamna ca, daca scoatem acest nod, graful care ramane (cel original) este 3-Colorabil.
+$$ 3\text{-Colorare}(G) = 1 \Leftarrow 4\text{-Colorare}(F(G)) = 1 $$
+
+Avem un nod (cel adaugat de noi, numerotat cu $|V|+1$) care este conectat la
+toate celelalte noduri, deci trebuie sa aibă o culoare diferită față de toate.
+Pentru ca problema este $4$-Colorabilă, înseamnă că, dacă scoatem acest nod,
+graful care rămâne (cel original) este $3$-Colorabil.
 
 # Exercitiul 2
 $$ \text{Partition} \leq_p \text{q-Sum} $$
