@@ -48,7 +48,7 @@ toate celelalte noduri, deci trebuie sa aibă o culoare diferită față de toat
 Pentru ca problema este $4$-Colorabilă, înseamnă că, dacă scoatem acest nod,
 graful care rămâne (cel original) este $3$-Colorabil.
 
-# Exercitiul 2
+# Exercițiul 2
 
 > > **Problema Partiției**: Dându-se un număr n și o mulțime de $n$ întregi $A =
 > > \{a_1, ..., a_n\}$, există $S \subset \{1, \dots, n\}$ astfel încât $\sum_{i
@@ -106,7 +106,7 @@ $$ \sum_{i \in S'} a_i = {1 \over 2} \sum A $$
 `sum(A) / 2`, deci există două submulțimi dijuncte și complementare care să aibă
 aceeași sumă, respectând condiția de la Partiție.
 
-# Exercitiul 3
+# Exercițiul 3
 
 > > **Problema Vertex Cover**: Dându-se un graf neorientat $G' = (V', E')$ și un
 > > număr $k'$, există o submulțime $S'$ de $k'$ noduri astfel încât fiecare muchie
@@ -156,42 +156,62 @@ v) \in E$ are *cel puțin* un capăt într-o submulțime de $k'$ noduri $S'$. Ce
 înseamnă că are *cel mult* un capăt în $V \setminus S' = S$. $|S| = k = |V| -
 k'$, deci graful respectă condiția de la Independent-Set pentru $k$.
 
-# Exercitiul 4
-$$ \text{Vertex Cover} \leq_p \text{Set Cover} $$
+# Exercițiul 4
 
-Inputul pentru `Vertex Cover` este un graf și un întreg, iar pentru `Set Cover`
+> > *Problema Set Cover*: Dându-se o mulțime $U$, o colecție $S_1, S_2, \dots,
+> > S_m$ de submulțimi ale lui U și un număr $k'$, există o colecție de $k'$
+> > astfel de submulțimi care reunite să dea $U$?
+>
+> Demonstrați următoare reducere polinomială:
+> $$ \text{Vertex-Cover} \leq_p \text{Set-Cover} $$
+
+Inputul pentru Vertex-Cover este un graf și un întreg, iar pentru Set-Cover
 este o listă, o listă de liste și un întreg.
 
-$$ F : (graf, int) \rightarrow (list, list<list>, int) $$
+$$ F : (\underbrace{(Set, List)}_{Graph}, Int) \rightarrow (Set, List<Set>, int) $$
 
 ```python
 def F(G, k: int)
     V, E = G
-    S = list(range(V))
+
+    U = E
+    S = len(V) * [None]
+    for _ in range(len(V)):
+        S[i] = set()
+
     for i in V:
         for u, v in E:
             if u == i or v == i:
                 S[i].add((u, v))
-    return E, S, k
+
+    return (E, S, k)
 ```
 
-Complexitatea temporală a lui `F` este liniară.
+Complexitatea temporală a lui `F` este $O(|V|\cdot|E|)$, considerăm inserția
+într-o mulțime $O(1)$.
 
-$$ \text{Vertex Cover} \iff \text{Set Cover} $$
+$$ \text{Vertex-Cover}(G, k) = 1 \iff \text{Set-Cover}(\underbrace{F(G, k)}_{(U,
+S, k')}) = 1 $$
+
+**Observație**: $k = k'$.
+
+TODO: comentariu despre $k$.
 
 **Analizăm implicația directă:**
 
-$$ \text{Vertex Cover} \Rightarrow \text{Set Cover} $$
+$$ \text{Vertex-Cover}(G, k) = 1 \Rightarrow \text{Set-Cover}(\underbrace{F(G,
+k)}_{(U, S, k')}) = 1 $$
 
-Dacă `Vertex Cover` este satisfacută, fiecare muchie are cel puțin un nod în
-mulțimea de acoperire `(S)`. Din construcția lui `F`, vedem că muchiile
-nodurilor din această listă sunt suficiente pentru a acoperi tot graful. Pentru
-că mulțimea din problema `Set Cover` este mulțimea muchiilor din graf `(E)`,
-înseamnă că `S[i]` acoperă întreaga listă.
+Dacă Vertex-Cover este satisfacută, fiecare muchie din $G$ are cel puțin un nod
+în mulțimea de acoperire $S'$. Din construcția lui `F`, vedem că muchiile
+nodurilor din această mulțime sunt suficiente pentru a acoperi tot graful.
+Pentru că mulțimea $U$ din problema Set-Cover este mulțimea muchiilor din graf,
+$E$, înseamnă că `S[i]` acoperă întreaga listă.
 
 **Analizăm implicația inversă:**
 
-$$ \text{Vertex Cover} \Leftarrow \text{Set Cover} $$
+$$ \text{Vertex-Cover}(G, k) = 1 \Leftarrow \text{Set-Cover}(\underbrace{F(G,
+k)}_{(U, S, k')}) = 1 $$
 
 Invers, dacă `Set Cover` este rezolvabilă, înseamnă că există o mulțime de
 mulțimi `C` care, reunite, acoperă toată mulțimea mare. Din construcția lui `F`,

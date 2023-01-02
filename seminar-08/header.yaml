@@ -6,7 +6,14 @@ date:
 geometry: margin=2cm
 indent: true
 papersize: a4
+color-links: true
+urlcolor: blue
 bibliography: bibliography.bib
+link-citations: true
+hyperrefoptions:
+  - linktoc=all
+nocite: |
+  @*
 color-links: true
 urlcolor: blue
 ---
