@@ -1,5 +1,3 @@
-TODO: adaugă numele popular al problemei lângă numărul exercițiului
-
 **Observație**: În redactarea soluțiilor am avut nevoie de structuri de date
 dincolo de ce oferă limbajul C, dar lipsite de complexitatea celor din C++ sau
 Java. Cel mai intuitiv ar fi fost să folosim [C*](http://cx-lang.org/), dar din
@@ -7,7 +5,7 @@ cauza relevanței scăzute în practică a lui, am ales să folosim un limbaj
 asemănător cu Python 3. În implementare am utilizat [Mutable Sequence Types] și
 [List Comprehensions]. **NU** sunteți obligați să folosiți Python la examen.
 
-# Exercițiul 1
+# Exercițiul 1 - K Adjacent Equal
 
 > Fiind dat un vector de numere, există o subsecvență de elemente egale
 consecutive de lungime mai mare decât `k`?
@@ -30,7 +28,7 @@ elemente egale. Complexitatea temporală a algoritmului nedeterminist este:
 
 $$\boxed{O(k)}$$
 
-# Exercițiul 2
+# Exercițiul 2 - K Path
 
 > Având un graf, $G(V, E)$, să se determine dacă există un drum de la nodul `u` la nodul
 > `v` care are lungimea mai mică decât o valoare dată, `dim`.
@@ -49,17 +47,15 @@ def path(V, E, u, v, dim):
     path(G, k, v, dim - 1)
 ```
 
-TODO: explică de ce căutarea vecinilor lui u e $O(|E|)$
+Deoarece am ales să stocăm E ca o listă de muchii, complexitatea pentru găsirea vecinilor lui `v` este O(|E|).
 
 Ne alegem un vecin și rezolvăm recursiv până când ajungem la `v` sau avem un
 `dim` prea mic. Complexitatea temporală a algoritmului nedeterminist este:
 
 $$\boxed{O(dim \cdot |E|)}$$
 
-# Exercițiul 3
+# Exercițiul 3 - Graph Coloring
 
-> **Colorarea unui graf**:
-> 
 > Dându-se un graf $G(V, E)$ și `k` culori, se pot colora nodurile
 > grafului doar cu cele `k` culori astfel încât niciun nod sa nu aibă un vecin
 > de aceeași culoare?
@@ -84,10 +80,8 @@ Complexitatea temporală a algoritmului nedeterminist este:
 
 $$\boxed{O(|V|+|E|)}$$
 
-# Exercițiul 4
+# Exercițiul 4 - K-Clique
 
-> **k-clică**:
-> 
 > Dându-se un graf $G(V, E)$ și un număr `k`, există un subgraf complet
 > (o clică) de dimensiune `k`?
 
@@ -112,10 +106,8 @@ temporală a algoritmului nedeterminist este:
 
 $$\boxed{O(k^2(|V|+|E|))}$$
 
-# Exercițiul 5
+# Exercițiul 5 - Vertex Cover
 
-> **k-acoperire (vertex cover):**
-> 
 >  Dându-se un graf $G(V, E)$ și un număr `k`, există o submulțime de `k`
 > noduri astfel încât fiecare muchie $(v_1, v_2)$ să aibă cel puțin unul dintre
 > nodurile care o compun ($v_1$ sau $v_2$) în submulțimea aleasă?
@@ -138,12 +130,10 @@ def vertex_cover(V, E, k):
 Alegem `k` noduri, apoi verificăm că formează o acoperire validă. Complexitatea
 temporală a algoritmului nedeterminist este:
 
-$$\boxed{O(k^2|V|+|E|)}$$
+$$\boxed{O(k^2|V|+k|E|)}$$
 
-# Exercițiul 6
+# Exercițiul 6 - Subset sum problem
 
-> **Submulțime de sumă data (Q-sume, Subset sum problem):**
->
 > Se dă o mulțime de N numere și un număr `Q`. Există o submulțime de numere a
 > căror sumă să fie fix `Q`?
 
@@ -170,10 +160,8 @@ Complexitatea temporală a algoritmului nedeterminist este:
 
 $$\boxed{O(|M|) = O(N)}$$
 
-# Exercițiul 7
+# Exercițiul 7 - Traveling salesman problem
 
-> **Problema comis-voiajorului (Traveling salesman problem):**
->
 > Se dă o mulțime de orașe conectate între ele prin drumuri. Există vreo
 > modalitate ca un comis voiajor să viziteze toate orașele o singură dată și să
 > se întoarcă de unde a plecat?
@@ -200,10 +188,8 @@ graf. Complexitatea temporală a algoritmului nedeterminist este:
 
 $$\boxed{O(|V|^2 + |E|)}$$
 
-# Exercițiul 8
+# Exercițiul 8 - Eight queens puzzle
 
-> **Problema reginelor (Eight queens puzzle)**
->
 > Plasați $8$ regine pe o tablă de șah fără ca acestea să se atace.
 
 ```python
@@ -225,18 +211,37 @@ def queens():
     success()
 ```
 
-TODO: adăugat sursă explicativă pt soluția clasică cu backtracking
-
 Alegem o poziție pentru fiecare regină, apoi verificăm dacă acea linie sau
 coloană sau diagonală este deja ocupată. Complexitatea temporală a algoritmului
 nedeterminist este, unde am notat cu $n$ dimensiunea tablei de șah:
 
-$$\boxed{O(n)}$$
+$$\boxed{O(N)}$$
 
-# Exercițiul 9
+O altă soluție, recursivă, ar fi:
 
-> **Problema subgrafurilor izomorfe (Subgraph isomorphism problem)**:
->
+```python
+def queensRec(currentQueens):
+    if len(currentQueens) == 8:
+        success()
+
+    x, y = choice(range(8)), choice(range(8))
+
+    for (qx, qy) in currentQueens:
+        if x == qx or y == qy or x - y == qx - qy or x + y == qx + qy:
+            fail()
+            
+    queensRec(currentQueens + [(x, y)])
+
+def queens():
+    queensRec([])
+```
+
+Această soluție seamănă cu cea clasică, de backtracking. Deoarece verificăm reginele între ele, complexitatea este:
+
+$$\boxed{O(N^2)}$$
+
+# Exercițiul 9 - Subgraph isomorphism problem
+
 > > Două grafuri $G_1(V_1, E_1)$ și $G_2(V_2, E_2)$ sunt izomorfe dacă există o
 > > funcție bijectivă $f : V_1 \rightarrow V_2$, astfel încat muchia $(u, v) \in
 > > E_1 \iff$ muchia $(f(u), f(v)) \in E_2$. (Observație: doua grafuri pot fi
@@ -245,29 +250,37 @@ $$\boxed{O(n)}$$
 > Dându-se două grafuri, $G_1$ și $G_2$, există un subgraf în $G_1$ care să fie
 > izomorf cu $G_2$?
 
-TODO: rewrite
-
 ```python
 def subgraph_isomorphism(V1, E1, V2, E2):
-    f = {} # dictionary that implements a partial function
+    f = {} # dictionar pentru functia f
+    ff = {} # f^-1
 
     #  generare
-    for v1 in V1:
-        if choice([True, False]):
-            diff = [v2 for v2 in V2 if v2 not in f.values()]
-            f[v1] = choice(diff)
+    available = V1
+    for v2 in V2:
+        v1 = choice(available)
+        f[v1] = v2
+        ff[v2] = v1
+        available.remove(v1)
 
     # testare
-    for (u, v) in E1:
-        if u in f.keys() and v in f.keys() and (f[u], f[v]) not in E2:
+    for (u, v) in E2:
+        if (ff[u], ff[v]) not in E1:
             fail()
+    
+    # V1' = f.keys()
+    # E1' = [(ff[u], ff[v]) for (u, v) in E2]
+
     success()
 ```
 
-# Exercițiul 10
+Pentru subgraful lui $G_1$, trebuie să alegem atât nodurile, cât și muchiile. Funcția este bijectiva, așa că putem privi dinspre $G_2$: alegem un $v_1 \in V_1$ pentru fiecare $v_2 \in V_2$, apoi verificăm că toate muchiile din $E_2$ au corespondent în $E_1$. Toate muchiile în plus din $E_1$ sunt ignorate.
 
-> **Independent set:**
->
+Pentru generare avem complexitatea $O(|V_1| \cdot |V_2|)$, din cauza faptului că acel remove are $O(|V_1|)$. Pentru testare avem $O(|E_1| \cdot |E_2|)$. În total, complexitatea temporală a algoritmului nedeterminist este:
+
+$$\boxed{O(|V_1| \cdot |V_2| + |E_1| \cdot |E_2|)}$$
+
+# Exercițiul 10 - Independent set
 
 > Dându-se un graf $G(V, E)$ și un număr `k`, există o mulțime $S$ de `k` noduri
 > astfel încât orice muchie are cel mult un capăt în $S$?
@@ -287,15 +300,13 @@ def independent(V, E, k):
     success()
 ```
 
-Ne alegem o submultime de `k` noduri și verificăm condiția. Complexitatea temporală a algoritmului
+Ne alegem o submulțime de `k` noduri și verificăm condiția. Complexitatea temporală a algoritmului
 nedeterminist est:
 
 $$\boxed{O(k^2|V| + k|E|)}$$
 
-# Exercițiul 11
+# Exercițiul 11 - Equal Subset Sum Partition
 
-> **Problema partiționării (Equal Subset Sum Partition):**
->
 > Dându-se o mulțime de $n$ numere întregi, există o împărțire a elementelor sale
 > în două submulțimi $S_1$ și $S_2$ care sa aibă sume egale?
 
@@ -326,10 +337,8 @@ Complexitatea temporală a algoritmului nedeterminist este:
 
 $$\boxed{O(n)}$$
 
-# Exercițiul 12
+# Exercițiul 12 - SAT (Boolean Satisfiability Problem)
 
-> **SAT (Boolean Satisfiability Problem)**:
->
 > Se dă o expresie booleană în forma normală conjunctivă - o conjuncție de
 > clauze, unde clauzele sunt disjuncții. Exemplu:
 >
@@ -337,9 +346,8 @@ $$\boxed{O(n)}$$
 > 
 > Să se determine daca exista o posibilitate de atribuire a variabilelor astfel incat expresia sa fie adevarata.
 
-TODO: write satisfy function
-
 ```python
+
 # V = variabile, C = clauze
 def sat(V, C):
     A = {} # dicționar de atribuiri pentru fiecare variabilă
@@ -347,10 +355,11 @@ def sat(V, C):
     # generare
     for v in V:
         A[v] = choice([True, False])
+        A[-v] = not A[v]
 
     # testare
     for clause in C:
-        if not satisfy(clause, A):
+        if not any(A[v] for v in clause):
             fail()
     success()
 ```
@@ -358,7 +367,7 @@ def sat(V, C):
 Atribui fiecărei variabile o valoare de adevăr și verific dacă satisfac toate
 clauzele. Complexitatea temporală a algoritmului nedeterminist este:
 
-$$\boxed{O(|V| + |C|)}$$
+$$\boxed{O(|V| \cdot |C|)}$$
 
 [Mutable Sequence Types]: https://docs.python.org/3/library/stdtypes.html#mutable-sequence-types
 [List Comprehensions]: https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions
