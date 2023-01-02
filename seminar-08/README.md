@@ -195,7 +195,9 @@ S, k')}) = 1 $$
 
 **Observație**: $k = k'$.
 
-TODO: comentariu despre $k$.
+Din definiția originală a lui Vertex-Cover, $k \geq |S'|$, unde $S'$ este
+mulțimea nodurilor de acoperire. Cum $S'$ din Vertex-Cover corespunde lui $S$
+din Set-Cover, $k' \geq |S|$.
 
 **Analizăm implicația directă:**
 
