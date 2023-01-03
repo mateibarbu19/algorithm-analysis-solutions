@@ -29,7 +29,13 @@ def F(G: tuple):
 
 Complexitatea temporală a lui `F` este liniară.
 
+Pentru a demonstra reducerea:
+
 $$ 3\text{-Colorare} \leq_p 4\text{-Colorare} $$
+
+Trebuie să verificăm echivalența următoare conform ideii din referința
+@GraphTheoryHow:
+
 $$ 3\text{-Colorare}(G) = 1 \iff 4\text{-Colorare}(F(G)) = 1 $$
 
 **Analizăm implicația directă:**
@@ -75,6 +81,9 @@ def F(A: set):
 ```
 
 Complexitatea temporală a lui `F` este liniară.
+
+Pentru a demonstra reducerea trebuie să verificăm echivalența următoare conform
+ideii din referința @ComplexityTheoryKarp:
 
 $$ \text{Partiție}(A) = 1 \iff q\text{-Sume}(\underbrace{F(A)}_B) = 1 $$
 
@@ -131,6 +140,9 @@ def F(G: tuple, k: int):
 
 Complexitatea temporală a lui `F` este liniară.
 
+Pentru a demonstra reducerea trebuie să verificăm echivalența următoare conform
+ideii din referința @2817Reduction:
+
 $$ \text{Independent-Set}(G, k) = 1 \iff \text{Vertex-Cover}(\underbrace{F(G,
 k)}_{(G', k')}) = 1 $$
 
@@ -175,9 +187,9 @@ def F(G, k: int)
     V, E = G
 
     U = E
-    S = len(V) * [None]
-    for _ in range(len(V)):
-        S[i] = set()
+    S = []
+    for _ in V:
+        S.append(set())
 
     for i in V:
         for u, v in E:
@@ -189,6 +201,9 @@ def F(G, k: int)
 
 Complexitatea temporală a lui `F` este $O(|V|\cdot|E|)$, considerăm inserția
 într-o mulțime $O(1)$.
+
+Pentru a demonstra reducerea trebuie să verificăm echivalența următoare conform
+ideii din referința @IntroToAlg:
 
 $$ \text{Vertex-Cover}(G, k) = 1 \iff \text{Set-Cover}(\underbrace{F(G, k)}_{(U,
 S, k')}) = 1 $$
