@@ -118,11 +118,11 @@ aceeași sumă, respectând condiția de la Partiție.
 # Exercițiul 3
 
 > > **Problema Vertex Cover**: Dându-se un graf neorientat $G' = (V', E')$ și un
-> > număr $k'$, există o submulțime $S'$ de $k'$ noduri astfel încât fiecare muchie
+> > număr $k'$, există o submulțime $S'$ de cel mult $k'$ noduri astfel încât fiecare muchie
 > > are *cel puțin* un capăt în $S'$?
 > 
 > > **Problema Independent Set**: Dându-se un graf neorientat $G = (V, E)$ și
-> > un număr $k$, există o submulțime $S$ de $k$ noduri, astfel încât fiecare
+> > un număr $k$, există o submulțime $S$ de cel puțin $k$ noduri, astfel încât fiecare
 > > muchie are *cel mult* un capăt în $S$?
 >
 > Demonstrați următoare reducere polinomială:
@@ -154,7 +154,7 @@ $$ \text{Independent-Set}(G, k) = 1 \Rightarrow
 \text{Vertex-Cover}(\underbrace{F(G, k)}_{(G', k')}) = 1 $$
 
 Dacă Independent-Set poate fi satisfacută, înseamnă că oricare latură $e = (u,
-v) \in E$ are *cel mult* un capăt într-o submulțime de $k$ noduri $S$. Ceea ce
+v) \in E$ are *cel mult* un capăt într-o submulțime de cel puțin $k$ noduri $S$. Ceea ce
 înseamnă că are *cel puțin* un capăt în $V \setminus S = S'$. $|S'| = k' = |V| -
 k$, deci graful respectă condiția de la Vertex-Cover pentru $k'$.
 
@@ -164,14 +164,14 @@ $$ \text{Independent-Set}(G, k) = 1 \Leftarrow
 \text{Vertex-Cover}(\underbrace{F(G, k)}_{(G', k')}) = 1 $$
 
 Dacă Vertex-Cover poate fi satisfacută, înseamnă că oricare latură $e = (u,
-v) \in E$ are *cel puțin* un capăt într-o submulțime de $k'$ noduri $S'$. Ceea ce
+v) \in E$ are *cel puțin* un capăt într-o submulțime de cel mult $k'$ noduri $S'$. Ceea ce
 înseamnă că are *cel mult* un capăt în $V \setminus S' = S$. $|S| = k = |V| -
 k'$, deci graful respectă condiția de la Independent-Set pentru $k$.
 
 # Exercițiul 4
 
 > > *Problema Set Cover*: Dându-se o mulțime $U$, o colecție $S_1, S_2, \dots,
-> > S_m$ de submulțimi ale lui U și un număr $k'$, există o colecție de $k'$
+> > S_m$ de submulțimi ale lui U și un număr $k'$, există o colecție de cel mult $k'$
 > > astfel de submulțimi care reunite să dea $U$?
 >
 > Demonstrați următoare reducere polinomială:
