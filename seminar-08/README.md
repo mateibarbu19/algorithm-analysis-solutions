@@ -1,8 +1,8 @@
 # Exercițiul 1
 
-> > **Problema $k$-Colorare** ($k\geq2$): Dându-se un graf neorientat $G = (V, E)$ și
-> > $k$ culori, se pot colora nodurile grafului folosind cele $k$ culori astfel
-> > încât niciun nod sa nu aibă un vecin de aceeași culoare?
+> > **Problema $k$-Colorare** ($k\geq2$): Dându-se un graf neorientat $G = (V,
+> > E)$ și $k$ culori, se pot colora nodurile grafului folosind cele $k$ culori
+> > astfel încât niciun nod sa nu aibă un vecin de aceeași culoare?
 > 
 > Demonstrați următoare reducere polinomială:
 > $$ 3\text{-Colorare} \leq_p 4\text{-Colorare} $$
@@ -96,7 +96,8 @@ submulțime de indici $S$ astfel încat
 
 $$ \sum_{i \in S} a_i = \sum_{i \notin S} a_i = {1 \over 2} \sum A $$
 
-Pentru că l-am fixat pe `q` să fie `sum(A) / 2`, înseamnă că submulțimea de indici $S$ respectă condiția din $q$-Sume.
+Pentru că l-am fixat pe `q` să fie `sum(A) / 2`, înseamnă că submulțimea de
+indici $S$ respectă condiția din $q$-Sume.
 
 **Analizăm implicația inversă:**
 
@@ -118,12 +119,12 @@ aceeași sumă, respectând condiția de la Partiție.
 # Exercițiul 3
 
 > > **Problema Vertex Cover**: Dându-se un graf neorientat $G' = (V', E')$ și un
-> > număr $k'$, există o submulțime $S'$ de cel mult $k'$ noduri astfel încât fiecare muchie
-> > are *cel puțin* un capăt în $S'$?
-> 
-> > **Problema Independent Set**: Dându-se un graf neorientat $G = (V, E)$ și
-> > un număr $k$, există o submulțime $S$ de cel puțin $k$ noduri, astfel încât fiecare
-> > muchie are *cel mult* un capăt în $S$?
+> > număr $k'$, există o submulțime $S'$ de cel mult $k'$ noduri astfel încât
+> > fiecare muchie are *cel puțin* un capăt în $S'$?
+>
+> > **Problema Independent Set**: Dându-se un graf neorientat $G = (V, E)$ și un
+> > număr $k$, există o submulțime $S$ de cel puțin $k$ noduri, astfel încât
+> > fiecare muchie are *cel mult* un capăt în $S$?
 >
 > Demonstrați următoare reducere polinomială:
 > $$ \text{Independent-Set} \leq_p \text{Vertex-Cover} $$
@@ -154,25 +155,27 @@ $$ \text{Independent-Set}(G, k) = 1 \Rightarrow
 \text{Vertex-Cover}(\underbrace{F(G, k)}_{(G', k')}) = 1 $$
 
 Dacă Independent-Set poate fi satisfacută, înseamnă că oricare latură $e = (u,
-v) \in E$ are *cel mult* un capăt într-o submulțime de cel puțin $k$ noduri $S$. Ceea ce
-înseamnă că are *cel puțin* un capăt în $V \setminus S = S'$. $k' = |V| - k \land |S| \leq k \Rightarrow |S'| \geq k'$,
-deci graful respectă condiția de la Vertex-Cover pentru $k'$.
+v) \in E$ are *cel mult* un capăt într-o submulțime de cel puțin $k$ noduri $S$.
+Ceea ce înseamnă că are *cel puțin* un capăt în $V \setminus S = S'$. $k' = |V|
+- k \land |S| \leq k \Rightarrow |S'| \geq k'$, deci graful respectă condiția de
+la Vertex-Cover pentru $k'$.
 
 **Analizăm implicația inversă:**
 
 $$ \text{Independent-Set}(G, k) = 1 \Leftarrow
 \text{Vertex-Cover}(\underbrace{F(G, k)}_{(G', k')}) = 1 $$
 
-Dacă Vertex-Cover poate fi satisfacută, înseamnă că oricare latură $e = (u,
-v) \in E$ are *cel puțin* un capăt într-o submulțime de cel mult $k'$ noduri $S'$. Ceea ce
-înseamnă că are *cel mult* un capăt în $V \setminus S' = S$. $k' = |V| - k \land |S'| \geq k' \Rightarrow |S| \leq k $,
-deci graful respectă condiția de la Independent-Set pentru $k$.
+Dacă Vertex-Cover poate fi satisfacută, înseamnă că oricare latură $e = (u, v)
+\in E$ are *cel puțin* un capăt într-o submulțime de cel mult $k'$ noduri $S'$.
+Ceea ce înseamnă că are *cel mult* un capăt în $V \setminus S' = S$. $k' = |V| -
+k \land |S'| \geq k' \Rightarrow |S| \leq k $, deci graful respectă condiția de
+la Independent-Set pentru $k$.
 
 # Exercițiul 4
 
 > > *Problema Set Cover*: Dându-se o mulțime $U$, o colecție $S_1, S_2, \dots,
-> > S_m$ de submulțimi ale lui U și un număr $k'$, există o colecție de cel mult $k'$
-> > astfel de submulțimi care reunite să dea $U$?
+> > S_m$ de submulțimi ale lui U și un număr $k'$, există o colecție de cel mult
+> > $k'$ astfel de submulțimi care reunite să dea $U$?
 >
 > Demonstrați următoare reducere polinomială:
 > $$ \text{Vertex-Cover} \leq_p \text{Set-Cover} $$
@@ -216,7 +219,7 @@ $$ \text{Vertex-Cover}(G, k) = 1 \Rightarrow \text{Set-Cover}(\underbrace{F(G,
 k)}_{(U, S, k')}) = 1 $$
 
 Dacă Vertex-Cover este satisfacută, fiecare muchie din $G$ are cel puțin un nod
-în mulțimea de acoperire $S'$. Din construcția lui $F$, vedem că muchiile
+în mulțimea de acoperire $S'$. Din construcția lui `F`, vedem că muchiile
 nodurilor din această mulțime sunt suficiente pentru a acoperi tot graful.
 Pentru că mulțimea $U$ din problema Set-Cover este mulțimea muchiilor din graf,
 $E$, înseamnă că există o submulțime de mulțimi din $S$, de dimensiune mai mică
@@ -229,8 +232,8 @@ k)}_{(U, S, k')}) = 1 $$
 
 Invers, dacă Set-Cover este rezolvabilă, înseamnă că există o submulțime de
 mulțimi din $S$ care, reunite, acoperă toată mulțimea $U$. Din construcția lui
-$F$, fiecare index din această submulțime este un nod în $V$. Mulțimea acestor
-noduri $(S')$ conține noduri de pe fiecare muchie (prin definiția lui
+`F`, fiecare index din această submulțime este un nod în $V$. Mulțimea acestor
+noduri $S'$ conține noduri de pe fiecare muchie (prin definiția lui
 Set-Cover), deci respectă condiția de Vertex-Cover.
 
 # Bibliografie
