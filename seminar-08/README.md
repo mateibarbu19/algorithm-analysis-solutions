@@ -155,8 +155,8 @@ $$ \text{Independent-Set}(G, k) = 1 \Rightarrow
 
 Dacă Independent-Set poate fi satisfacută, înseamnă că oricare latură $e = (u,
 v) \in E$ are *cel mult* un capăt într-o submulțime de cel puțin $k$ noduri $S$. Ceea ce
-înseamnă că are *cel puțin* un capăt în $V \setminus S = S'$. $|S'| = k' = |V| -
-k$, deci graful respectă condiția de la Vertex-Cover pentru $k'$.
+înseamnă că are *cel puțin* un capăt în $V \setminus S = S'$. $k' = |V| - k \land |S| \leq k \Rightarrow |S'| \geq k'$,
+deci graful respectă condiția de la Vertex-Cover pentru $k'$.
 
 **Analizăm implicația inversă:**
 
@@ -165,8 +165,8 @@ $$ \text{Independent-Set}(G, k) = 1 \Leftarrow
 
 Dacă Vertex-Cover poate fi satisfacută, înseamnă că oricare latură $e = (u,
 v) \in E$ are *cel puțin* un capăt într-o submulțime de cel mult $k'$ noduri $S'$. Ceea ce
-înseamnă că are *cel mult* un capăt în $V \setminus S' = S$. $|S| = k = |V| -
-k'$, deci graful respectă condiția de la Independent-Set pentru $k$.
+înseamnă că are *cel mult* un capăt în $V \setminus S' = S$. $k' = |V| - k \land |S'| \geq k' \Rightarrow |S| \leq k $,
+deci graful respectă condiția de la Independent-Set pentru $k$.
 
 # Exercițiul 4
 
@@ -208,11 +208,7 @@ ideii din referința @IntroToAlg:
 $$ \text{Vertex-Cover}(G, k) = 1 \iff \text{Set-Cover}(\underbrace{F(G, k)}_{(U,
 S, k')}) = 1 $$
 
-**Observație**: $k = k'$.
-
-Din definiția originală a lui Vertex-Cover, $k \geq |S'|$, unde $S'$ este
-mulțimea nodurilor de acoperire. Cum $S'$ din Vertex-Cover corespunde lui $S$
-din Set-Cover, $k' \geq |S|$.
+**Observație**: $U = E, k = k'$.
 
 **Analizăm implicația directă:**
 
@@ -220,20 +216,21 @@ $$ \text{Vertex-Cover}(G, k) = 1 \Rightarrow \text{Set-Cover}(\underbrace{F(G,
 k)}_{(U, S, k')}) = 1 $$
 
 Dacă Vertex-Cover este satisfacută, fiecare muchie din $G$ are cel puțin un nod
-în mulțimea de acoperire $S'$. Din construcția lui `F`, vedem că muchiile
+în mulțimea de acoperire $S'$. Din construcția lui $F$, vedem că muchiile
 nodurilor din această mulțime sunt suficiente pentru a acoperi tot graful.
 Pentru că mulțimea $U$ din problema Set-Cover este mulțimea muchiilor din graf,
-$E$, înseamnă că `S[i]` acoperă întreaga listă.
+$E$, înseamnă că există o submulțime de mulțimi din $S$, de dimensiune mai mică
+de $k'$ care acoperă întreaga listă.
 
 **Analizăm implicația inversă:**
 
 $$ \text{Vertex-Cover}(G, k) = 1 \Leftarrow \text{Set-Cover}(\underbrace{F(G,
 k)}_{(U, S, k')}) = 1 $$
 
-Invers, dacă `Set Cover` este rezolvabilă, înseamnă că există o mulțime de
-mulțimi `C` care, reunite, acoperă toată mulțimea mare. Din construcția lui `F`,
-fiecare muchie din `C` are asociat în graf un nod. Mulțimea acestor noduri `(S)`
-conține noduri de pe fiecare muchie (prin definiția lui `Set Cover`), deci
-respectă condiția de `Vertex Cover`.
+Invers, dacă Set-Cover este rezolvabilă, înseamnă că există o submulțime de
+mulțimi din $S$ care, reunite, acoperă toată mulțimea $U$. Din construcția lui
+$F$, fiecare index din această submulțime este un nod în $V$. Mulțimea acestor
+noduri $(S')$ conține noduri de pe fiecare muchie (prin definiția lui
+Set-Cover), deci respectă condiția de Vertex-Cover.
 
 # Bibliografie
